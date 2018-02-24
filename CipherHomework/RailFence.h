@@ -43,6 +43,7 @@ class RailFence: public CipherInterface
 
 		/* The protected members */
 	protected:
+		int key;
 
 
 };

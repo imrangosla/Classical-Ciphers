@@ -8,11 +8,15 @@
  */
 bool Caesar::setKey(const string& key)
 {
+  Caesar caesar;
   int Ckey = stoi(key);
   if (!(isdigit[Ckey]))
     return false;
-	else
+	else{
+    caesar.key = key;
     return true;
+  }
+
 }
 
 
@@ -25,7 +29,8 @@ bool Caesar::setKey(const string& key)
  */
 string Caesar::encrypt(const string& plaintext)
 {
-  
+  Caesar caesar;
+  int key = caesar.key;
   string result = "";
   for (size_t i = 0; i < plaintext.length(); i++) {
     if (isupper(plaintext[i])) {
@@ -34,7 +39,6 @@ string Caesar::encrypt(const string& plaintext)
     else
       result += char(int(plaintext[i]+key-97)%26+97);
   }
-
 	return result;
 }
 
@@ -45,15 +49,16 @@ string Caesar::encrypt(const string& plaintext)
  */
 string Caesar::decrypt(const string& cipherText)
 {
-  int key = 26 -3;
+  Caesar caesar;
+  int key = 26 - caesar.key;
   string result = "";
   for (size_t i = 0; i < cipherText.length(); i++) {
     if (isupper(cipherText[i])) {
-      result += char(int(cipherText[i]+s-65)%26+65);
+      result += char(int(cipherText[i]+key-65)%26+65);
     }
     else
-    result += char(int(cipherText[i]+key-97)%26+97)
+    result += char(int(cipherText[i]+key-97)%26+97);
   }
-	return "";
+	return result;
 
 }
