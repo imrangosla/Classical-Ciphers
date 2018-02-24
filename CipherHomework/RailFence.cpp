@@ -2,46 +2,56 @@
 
 
 /**
- * Sets the key to use
- * @param key - the key to use
- * @return - True if the key is valid and False otherwise
- */
-bool RailFence::setKey(const string& key)
+* Sets the key to use
+* @param key - the key to use
+* @return - True if the key is valid and False otherwise
+*/
+bool Railfence::setKey(const string& key)
 {
-	RailFence railfence;
-  int Ckey = stoi(key);
-  if (!(isdigit[Ckey]))
-    return false;
-	else{
-    railfence.key = key;
-    return true;
-  }
+	int intKey = stoi(key);
+
+	if (!isdigit(intKey))
+		return false;
+	else
+		this->key = intKey;
+
+	return true;
 }
 
 
 
 
 /**
- * Encrypts a plaintext string
- * @param plaintext - the plaintext string
- * @return - the encrypted ciphertext string
- */
-string RailFence::encrypt(const string& plaintext)
+* Encrypts a plaintext string
+* @param plaintext - the plaintext string
+* @return - the encrypted ciphertext string
+*/
+string Railfence::encrypt(const string& plaintext)
 {
 	string result;
 
-	RailFence railfence;
+	/*Railfence railfence;
 	int key = railfence.key;
-	if ((plaintext.length()%key) > 0) {
+	if ((plaintext.length() % key) > 0) {
 		int row = key;
-		int col = (plaintext.length()/key)+ 1;
-		char rail[row][col] = {*};
+		int col = (plaintext.length() / key) + 1;
+		char rail[row][col] = { *};
 	}
-	else{
+	else {
 		int row = key;
-		int col = (plaintext.length()/key);
-		char rail[row][col] = {*};
+		int col = (plaintext.length() / key);
+		char rail[row][col] = { *};
+	}*/
+
+	int row = key;
+	int col = (plaintext.length() / key);
+
+	if ((plaintext.length() % key) > 0) {
+		col += 1;
 	}
+
+	//dynamic creation of a 2 dimentional vector 
+	vector<vector<char>>rail(row, vector<char>(col));
 
 
 	int k = 0;
@@ -53,14 +63,14 @@ string RailFence::encrypt(const string& plaintext)
 				k++;
 			}
 		}
-	} while(k < plaintext.length());
+	} while (k < plaintext.length());
 
 	int g = 0;
 	do {
 		for (int i = 0; i < key; i++) {
 			for (int j = 0; j < col; i++) {
-				if (rail[i][j] == "*") {
-					g++
+				if (rail[i][j] == '*') {
+					g++;
 				}
 				else {
 					result[g] = rail[i][j];
@@ -68,48 +78,58 @@ string RailFence::encrypt(const string& plaintext)
 				}
 			}
 		}
-	} while(g < plaintext.length());
+	} while (g < plaintext.length());
 
-return result;
+	return result;
 }
 
 /**
- * Decrypts a string of ciphertext
- * @param cipherText - the ciphertext
- * @return - the plaintext
- */
-string RailFence::decrypt(const string& cipherText)
+* Decrypts a string of ciphertext
+* @param cipherText - the ciphertext
+* @return - the plaintext
+*/
+string Railfence::decrypt(const string& cipherText)
 {
 	string result;
 
-	RailFence railfence;
+	/*Railfence railfence;
 	int key = railfence.key;
-	if ((plaintext.length()%key) > 0) {
+	if ((plaintext.length() % key) > 0) {
 		int row = key;
-		int col = (cipherText.length()/key)+ 1;
-		char rail[row][col] = {*};
+		int col = (cipherText.length() / key) + 1;
+		char rail[row][col] = { *};
 	}
-	else{
+	else {
 		int row = key;
-		int col = (cipherText.length()/key);
-		char rail[row][col] = {*};
+		int col = (cipherText.length() / key);
+		char rail[row][col] = { *};
+	}*/
+
+	int row = key;
+	int col = (cipherText.length() / key);
+
+	if ((cipherText.length() % key) > 0) {
+		col += 1;
 	}
+
+	//dynamic creation of a 2 dimentional vector 
+	vector<vector<char>>rail(row, vector<char>(col));
 
 	int k = 0;
 	do {
 		for (int i = 0; i < key; i++) {
 			for (int j = 0; j < col; j++) {
-				rail[i][j] = plaintext[k];
+				rail[i][j] = cipherText[k];
 				k++;
 			}
 		}
-	} while(k < plaintext.length());
+	} while (k < cipherText.length());
 
 	int g = 0;
 	do {
 		for (int i = 0; i < col; i++) {
 			for (int j = 0; j < key; i++) {
-				if (rail[j][i] == "*") {
+				if (rail[j][i] == '*') {
 					g++;
 				}
 				else {
@@ -118,8 +138,8 @@ string RailFence::decrypt(const string& cipherText)
 				}
 			}
 		}
-	} while(g < cipherText.length());
+	} while (g < cipherText.length());
 
-return result;
+	return result;
 
 }
