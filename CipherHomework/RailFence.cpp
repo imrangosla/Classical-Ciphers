@@ -32,14 +32,25 @@ string RailFence::encrypt(const string& plaintext)
 
 	RailFence railfence;
 	int key = railfence.key;
-	char rail [key][(plaintext.length()/key) + 1];
+	if ((plaintext.length()%key) > 0) {
+		int row = key;
+		int col = (plaintext.length()/key)+ 1;
+		char rail[row][col] = {*};
+	}
+	else{
+		int row = key;
+		int col = (plaintext.length()/key);
+		char rail[row][col] = {*};
+	}
+
 
 	int k = 0;
 	do {
 
-		for (int i = 0; i < (plaintext.length()/key) + 1; i++) {
+		for (int i = 0; i < col; i++) {
 			for (int j = 0; j < key; j++) {
 				rail[j][i] = plaintext[k];
+				k++;
 			}
 		}
 	} while(k < plaintext.length());
@@ -47,8 +58,14 @@ string RailFence::encrypt(const string& plaintext)
 	int g = 0;
 	do {
 		for (int i = 0; i < key; i++) {
-			for (int j = 0; j < (plaintext.length()/key) + 1; i++) {
-				result[g] = rail[i][j];
+			for (int j = 0; j < col; i++) {
+				if (rail[i][j] == "*") {
+					g++
+				}
+				else {
+					result[g] = rail[i][j];
+					g++;
+				}
 			}
 		}
 	} while(g < plaintext.length());
@@ -63,6 +80,46 @@ return result;
  */
 string RailFence::decrypt(const string& cipherText)
 {
-	return "";
+	string result;
+
+	RailFence railfence;
+	int key = railfence.key;
+	if ((plaintext.length()%key) > 0) {
+		int row = key;
+		int col = (cipherText.length()/key)+ 1;
+		char rail[row][col] = {*};
+	}
+	else{
+		int row = key;
+		int col = (cipherText.length()/key);
+		char rail[row][col] = {*};
+	}
+
+	int k = 0;
+	do {
+		for (int i = 0; i < key; i++) {
+			for (int j = 0; j < col; j++) {
+				rail[i][j] = plaintext[k];
+				k++;
+			}
+		}
+	} while(k < plaintext.length());
+
+	int g = 0;
+	do {
+		for (int i = 0; i < col; i++) {
+			for (int j = 0; j < key; i++) {
+				if (rail[j][i] == "*") {
+					g++;
+				}
+				else {
+					result[g] = rail[j][i];
+					g++;
+				}
+			}
+		}
+	} while(g < cipherText.length());
+
+return result;
 
 }
