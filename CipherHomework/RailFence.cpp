@@ -84,7 +84,7 @@ string RailFence::decrypt(const string& cipherText)
 
 	RailFence railfence;
 	int key = railfence.key;
-	if ((plaintext.length()%key) > 0) {
+	if ((cipherText.length()%key) > 0) {
 		int row = key;
 		int col = (cipherText.length()/key)+ 1;
 		char rail[row][col] = {*};
