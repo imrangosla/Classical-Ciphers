@@ -22,14 +22,6 @@ int main(int argc, char** argv)
 	* ILLUSTRATE INSTANTIATION OF CLASSES
 	* THAT USE THE SAME INTERFACE.
 	*/
-
-	/*cout << argc << endl;
-	cout << argv[0] << endl
-		<< argv[1] << endl 
-		<< argv[2] << endl 
-		<< argv[3] << endl
-		<< argv[4] << endl
-		<< argv[5] << endl;*/
 		  
 	if (argc != 6)
 		return -1;
