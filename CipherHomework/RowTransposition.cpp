@@ -2,15 +2,15 @@
 
 
 /**
- * Sets the key to use
- * @param key - the key to use
- * @return - True if the key is valid and False otherwise
- */
+* Sets the key to use
+* @param key - the key to use
+* @return - True if the key is valid and False otherwise
+*/
 bool RowTransposition::setKey(const string& key)
 {
-  if (!(isalpha[key])) {
-    /* code */
-  }
+	if (!(isalpha(key[0]))) {
+		/* code */
+	}
 	return false;
 }
 
@@ -18,10 +18,10 @@ bool RowTransposition::setKey(const string& key)
 
 
 /**
- * Encrypts a plaintext string
- * @param plaintext - the plaintext string
- * @return - the encrypted ciphertext string
- */
+* Encrypts a plaintext string
+* @param plaintext - the plaintext string
+* @return - the encrypted ciphertext string
+*/
 string RowTransposition::encrypt(const string& plaintext)
 {
 
@@ -30,10 +30,10 @@ string RowTransposition::encrypt(const string& plaintext)
 }
 
 /**
- * Decrypts a string of ciphertext
- * @param cipherText - the ciphertext
- * @return - the plaintext
- */
+* Decrypts a string of ciphertext
+* @param cipherText - the ciphertext
+* @return - the plaintext
+*/
 string RowTransposition::decrypt(const string& cipherText)
 {
 	return "";

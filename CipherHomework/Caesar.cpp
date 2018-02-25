@@ -10,7 +10,7 @@ bool Caesar::setKey(const string& key)
 {
 	int intKey = stoi(key);
 
-	if (!isdigit(intKey))
+	if (!isdigit(key[0]))
 		return false;
 	else
 		this->key = intKey;

@@ -10,7 +10,7 @@ bool Railfence::setKey(const string& key)
 {
 	int intKey = stoi(key);
 
-	if (!isdigit(intKey))
+	if (!isdigit(key[0]))
 		return false;
 	else
 		this->key = intKey;
@@ -51,7 +51,7 @@ string Railfence::encrypt(const string& plaintext)
 	}
 
 	//dynamic creation of a 2 dimentional vector 
-	vector<vector<char>>rail(row, vector<char>(col));
+	vector<vector<char> >rail(row, vector<char>(col));
 
 
 	int k = 0;
@@ -73,7 +73,7 @@ string Railfence::encrypt(const string& plaintext)
 					g++;
 				}
 				else {
-					result[g] = rail[i][j];
+					result[g] = rail[i][j];		//CRASH: string subscript out of range
 					g++;
 				}
 			}
@@ -113,7 +113,7 @@ string Railfence::decrypt(const string& cipherText)
 	}
 
 	//dynamic creation of a 2 dimentional vector 
-	vector<vector<char>>rail(row, vector<char>(col));
+	vector<vector<char> >rail(row, vector<char>(col));
 
 	int k = 0;
 	do {

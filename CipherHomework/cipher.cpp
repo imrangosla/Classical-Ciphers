@@ -1,16 +1,19 @@
 #include <string>
+#include <iostream>
 #include <fstream>
 #include "CipherInterface.h"
 #include "Playfair.h"
-//#include "RowTransposition.h"
+#include "RowTransposition.h"
 #include "Railfence.h"
-//#include "Vigenre.h"
+#include "Vigenre.h"
 #include "Caesar.h"
 
 
 #ifndef __HP_aCC
 using namespace std;
 #endif
+
+void errorCheck(CipherInterface*);
 
 int main(int argc, char** argv)
 {
@@ -20,14 +23,24 @@ int main(int argc, char** argv)
 	* THAT USE THE SAME INTERFACE.
 	*/
 
-	if (argc != 5)
+	/*cout << argc << endl;
+	cout << argv[0] << endl
+		<< argv[1] << endl 
+		<< argv[2] << endl 
+		<< argv[3] << endl
+		<< argv[4] << endl
+		<< argv[5] << endl;*/
+		  
+	if (argc != 6)
 		return -1;
 
-	string cipherName = argv[0];
-	string key = argv[1];
-	string encDec = argv[2];
-	string inputFile = argv[3];
-	string outputFile = argv[4];
+	string cipherName = argv[1];
+	string key = argv[2];
+	string encDec = argv[3];
+	string inputFile = argv[4];
+	string outputFile = argv[5];
+
+	//cout << cipherName << key << encDec << inputFile << outputFile << endl;
 
 	fstream stream(inputFile);
 	string content((istreambuf_iterator<char>(stream)),(istreambuf_iterator<char>()));
@@ -51,6 +64,27 @@ int main(int argc, char** argv)
 			/* Perform encryption */
 			string cipherText = cipher->encrypt(content);
 			outFile << cipherText;
+		}
+		else if (encDec == "DEC")
+		{
+			/* Perform decryption */
+			string plainText = cipher->decrypt(content);
+			outFile << plainText;
+		}
+	}
+	else if (cipherName == "RTS")
+	{
+		cipher = new RowTransposition();
+		errorCheck(cipher);
+
+		/* Set the encryption key */
+		cipher->setKey(key);
+
+		if (encDec == "ENC")
+		{
+			/* Perform encryption */
+			string cipherText = cipher->encrypt(content);
+			outFile << cipherText;
 
 		}
 		else if (encDec == "DEC")
@@ -59,13 +93,6 @@ int main(int argc, char** argv)
 			string plainText = cipher->decrypt(content);
 			outFile << plainText;
 		}
-		
-
-		
-	}
-	else if (cipherName == "RTS")
-	{
-
 	}
 	else if (cipherName == "RFC")
 	{
@@ -91,7 +118,25 @@ int main(int argc, char** argv)
 	}
 	else if (cipherName == "VIG")
 	{
+		cipher = new Vigenre();
+		errorCheck(cipher);
 
+		/* Set the encryption key */
+		cipher->setKey(key);
+
+		if (encDec == "ENC")
+		{
+			/* Perform encryption */
+			string cipherText = cipher->encrypt(content);
+			outFile << cipherText;
+
+		}
+		else if (encDec == "DEC")
+		{
+			/* Perform decryption */
+			string plainText = cipher->decrypt(content);
+			outFile << plainText;
+		}
 	}
 	else if (cipherName == "CES")
 	{
@@ -118,6 +163,7 @@ int main(int argc, char** argv)
 	
 	outFile.close();
 	stream.close();
+	system("pause");
 	return 0;
 }
 
