@@ -1,5 +1,5 @@
-#ifndef PLAYFAIR_H
-#define PLAYFAIR_H
+#ifndef RAILFENCE_H
+#define RAILFENCE_H
 
 #include <vector>   /* For vectors */
 #include <string>   /* For C++ strings */
@@ -10,12 +10,12 @@
 using namespace std;
 
 /**
-* This class implements the playfair cipher.
+* This class implements the railfence cipher.
 * The class extends the abstract class
 * CipherInterface.
 */
 
-class Playfair : public CipherInterface
+class Railfence : public CipherInterface
 {
 	/** The public members **/
 public:
@@ -41,17 +41,11 @@ public:
 	*/
 	virtual string decrypt(const string& ciphertext);
 
-	/**
-	* Prints the Playfair matrix
-	* @param fp - the file pointer
-	*/
-	void printMatrix(FILE* fp);
-
 	/* The protected members */
 protected:
+	int key;
 
 
 };
 
 #endif
-#pragma once

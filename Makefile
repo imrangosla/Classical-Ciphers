@@ -1,7 +1,7 @@
 all:	cipher
 
 cipher:	cipher.o Playfair.o RowTransposition.o Railfence.o Vigenre.o Caesar.o
-	g++ cipher.o Playfair.o RowTransposition.o Railfence.o Caesar.o -o cipher
+	g++ cipher.o Playfair.o RowTransposition.o Railfence.o Vigenre.o Caesar.o -o cipher
 
 cipher.o:	cipher.cpp
 	g++ -g -c cipher.cpp 

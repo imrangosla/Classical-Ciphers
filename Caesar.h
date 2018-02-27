@@ -1,5 +1,5 @@
-#ifndef RAILFENCE_H
-#define RAILFENCE_H
+#ifndef CAESAR_H
+#define CAESAR_H
 
 #include <vector>   /* For vectors */
 #include <string>   /* For C++ strings */
@@ -10,12 +10,12 @@
 using namespace std;
 
 /**
-* This class implements the railfence cipher.
+* This class implements the caesar cipher.
 * The class extends the abstract class
 * CipherInterface.
 */
 
-class Railfence : public CipherInterface
+class Caesar : public CipherInterface
 {
 	/** The public members **/
 public:
@@ -40,12 +40,6 @@ public:
 	* @return - the plaintext
 	*/
 	virtual string decrypt(const string& ciphertext);
-
-	/**
-	* Prints the Playfair matrix
-	* @param fp - the file pointer
-	*/
-	void printMatrix(FILE* fp);
 
 	/* The protected members */
 protected:

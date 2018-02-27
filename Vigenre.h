@@ -1,21 +1,29 @@
-#ifndef ROWTRANSPOSITION_H
-#define ROWTRANSPOSITION_H
+/*
+Kevin Pham
+Feb 25, 2018
+CPSC 452
+*/
+
+#ifndef VIGENRE_H
+#define VIGENRE_H
 
 #include <vector>   /* For vectors */
 #include <string>   /* For C++ strings */
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
+#include <iostream>
+#include <fstream>
 #include "CipherInterface.h"
 
 using namespace std;
 
 /**
-* This class implements the row transposition cipher.
+* This class implements the vigenre cipher.
 * The class extends the abstract class
 * CipherInterface.
 */
 
-class RowTransposition : public CipherInterface
+class Vigenre : public CipherInterface
 {
 	/** The public members **/
 public:
@@ -42,14 +50,24 @@ public:
 	virtual string decrypt(const string& ciphertext);
 
 	/**
-	* Prints the Playfair matrix
-	* @param fp - the file pointer
+	* Setup the vectors in this header file using parameter
+	* @param text - the plaintext from encrypt, or ciphertext from decrypt
 	*/
-	void printMatrix(FILE* fp);
+	void setupVectors(const string& text);
+
+	/**
+	* Ready the result for output.
+	*/
+	string readyResult();
 
 	/* The protected members */
 protected:
-
+	vector<int> vectorKey;
+	vector<int> vectorKeyLong;
+	vector<int> vectorInput;
+	vector<int> vectorOutput;
+	int keyLength;
+	int inputLength;
 
 };
 

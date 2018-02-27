@@ -28,8 +28,6 @@ bool Caesar::setKey(const string& key)
 */
 string Caesar::encrypt(const string& plaintext)
 {
-	/*Caesar caesar;
-	int key = caesar.key;*/
 	string result = "";
 	for (size_t i = 0; i < plaintext.length(); i++) {
 		if (isupper(plaintext[i])) {
@@ -48,8 +46,6 @@ string Caesar::encrypt(const string& plaintext)
 */
 string Caesar::decrypt(const string& cipherText)
 {
-	/*Caesar caesar;
-	int key = 26 - caesar.key;*/
 	int dKey = 26 - key;
 	string result = "";
 	for (size_t i = 0; i < cipherText.length(); i++) {

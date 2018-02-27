@@ -1,21 +1,22 @@
-#ifndef VIGENRE_H
-#define VIGENRE_H
+#ifndef PLAYFAIR_H
+#define PLAYFAIR_H
 
 #include <vector>   /* For vectors */
 #include <string>   /* For C++ strings */
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
+#include <algorithm>
 #include "CipherInterface.h"
 
 using namespace std;
 
 /**
-* This class implements the vigenre cipher.
+* This class implements the playfair cipher.
 * The class extends the abstract class
 * CipherInterface.
 */
 
-class Vigenre : public CipherInterface
+class Playfair : public CipherInterface
 {
 	/** The public members **/
 public:
@@ -42,14 +43,15 @@ public:
 	virtual string decrypt(const string& ciphertext);
 
 	/**
-	* Prints the Playfair matrix
-	* @param fp - the file pointer
+	*setKey helper function to find repeating characters in a string
+	*@param key - the key to use
+	*@return True if string contains repeating characters and False otherwise
 	*/
-	void printMatrix(FILE* fp);
+	bool hasRepeatingChars(string key);
 
 	/* The protected members */
 protected:
-
+	char squareKey[5][5];
 
 };
 

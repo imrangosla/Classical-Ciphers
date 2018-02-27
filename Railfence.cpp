@@ -30,19 +30,6 @@ string Railfence::encrypt(const string& plaintext)
 {
 	string result;
 
-	/*Railfence railfence;
-	int key = railfence.key;
-	if ((plaintext.length() % key) > 0) {
-		int row = key;
-		int col = (plaintext.length() / key) + 1;
-		char rail[row][col] = { *};
-	}
-	else {
-		int row = key;
-		int col = (plaintext.length() / key);
-		char rail[row][col] = { *};
-	}*/
-
 	int row = key;
 	int col = (plaintext.length() / key);
 
@@ -53,27 +40,33 @@ string Railfence::encrypt(const string& plaintext)
 	//dynamic creation of a 2 dimentional vector 
 	vector<vector<char> >rail(row, vector<char>(col));
 
-
+	//nested for loop to load plaintext into rail vector
 	int k = 0;
 	do {
 
 		for (int i = 0; i < col; i++) {
 			for (int j = 0; j < key; j++) {
-				rail[j][i] = plaintext[k];
-				k++;
+				if (k < plaintext.length())
+				{
+					rail[j][i] = plaintext[k];
+					k++;
+				}
+				else
+					rail[j][i] = '*';
 			}
 		}
 	} while (k < plaintext.length());
 
+	//nested loop to write out encrypted message for returning
 	int g = 0;
 	do {
 		for (int i = 0; i < key; i++) {
-			for (int j = 0; j < col; i++) {
+			for (int j = 0; j < col; j++) {
 				if (rail[i][j] == '*') {
-					g++;
+					j++;
 				}
 				else {
-					result[g] = rail[i][j];		//CRASH: string subscript out of range
+					result += rail[i][j];		
 					g++;
 				}
 			}
@@ -92,19 +85,6 @@ string Railfence::decrypt(const string& cipherText)
 {
 	string result;
 
-	/*Railfence railfence;
-	int key = railfence.key;
-	if ((plaintext.length() % key) > 0) {
-		int row = key;
-		int col = (cipherText.length() / key) + 1;
-		char rail[row][col] = { *};
-	}
-	else {
-		int row = key;
-		int col = (cipherText.length() / key);
-		char rail[row][col] = { *};
-	}*/
-
 	int row = key;
 	int col = (cipherText.length() / key);
 
@@ -115,6 +95,7 @@ string Railfence::decrypt(const string& cipherText)
 	//dynamic creation of a 2 dimentional vector 
 	vector<vector<char> >rail(row, vector<char>(col));
 
+	//nested loop to load ciphertext into rail vector
 	int k = 0;
 	do {
 		for (int i = 0; i < key; i++) {
@@ -125,15 +106,16 @@ string Railfence::decrypt(const string& cipherText)
 		}
 	} while (k < cipherText.length());
 
+	//nested loop to parse decoded message for returning
 	int g = 0;
 	do {
 		for (int i = 0; i < col; i++) {
-			for (int j = 0; j < key; i++) {
+			for (int j = 0; j < key; j++) {
 				if (rail[j][i] == '*') {
-					g++;
+					i++;
 				}
 				else {
-					result[g] = rail[j][i];
+					result += rail[j][i];
 					g++;
 				}
 			}
@@ -141,5 +123,4 @@ string Railfence::decrypt(const string& cipherText)
 	} while (g < cipherText.length());
 
 	return result;
-
 }

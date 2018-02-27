@@ -1,5 +1,5 @@
-#ifndef CAESAR_H
-#define CAESAR_H
+#ifndef ROWTRANSPOSITION_H
+#define ROWTRANSPOSITION_H
 
 #include <vector>   /* For vectors */
 #include <string>   /* For C++ strings */
@@ -10,12 +10,12 @@
 using namespace std;
 
 /**
-* This class implements the caesar cipher.
+* This class implements the row transposition cipher.
 * The class extends the abstract class
 * CipherInterface.
 */
 
-class Caesar : public CipherInterface
+class RowTransposition : public CipherInterface
 {
 	/** The public members **/
 public:
@@ -41,15 +41,8 @@ public:
 	*/
 	virtual string decrypt(const string& ciphertext);
 
-	/**
-	* Prints the Playfair matrix
-	* @param fp - the file pointer
-	*/
-	void printMatrix(FILE* fp);
-
 	/* The protected members */
 protected:
-	int key;
 
 
 };
