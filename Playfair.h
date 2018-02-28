@@ -43,11 +43,19 @@ public:
 	virtual string decrypt(const string& ciphertext);
 
 	/**
-	*setKey helper function to find repeating characters in a string
-	*@param key - the key to use
-	*@return True if string contains repeating characters and False otherwise
+	* setKey helper function to find repeating characters in a string
+	* @param key - the key to use
+	* @return True if string contains repeating characters and False otherwise
 	*/
 	bool hasRepeatingChars(string key);
+
+	/**
+	* Helper function to do modulus arithmetic for results less than zero
+	* because -1 % 5 in c++ is -1 instead of 4...
+	* @param x , y - integers in operation
+	* @return - result of the operation
+	*/
+	int mod(int x, int y);
 
 	/* The protected members */
 protected:
