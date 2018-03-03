@@ -50,13 +50,24 @@ string RowTransposition::encrypt(const string& plaintext)
 	vector<vector<char> >cipherMatrix(rows, vector<char>(cols));
 
 	//populate the matrix
+	
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			cipherMatrix[i][j] = '#';
+		}
+	}
+
 	int counter = 0;
 	for (int i = 0; i < rows; i++)							
 	{
 		for (int j = 0; j < cols && (counter < pLength); j++)
 		{
 			//textTest = text[counter];			*used for debugging
-			cipherMatrix[i][j] = text[counter];
+			{
+				cipherMatrix[i][j] = text[counter];
+			}
 			counter++;
 		}
 	}
@@ -71,9 +82,9 @@ string RowTransposition::encrypt(const string& plaintext)
 	}
 
 
-/*
 
-print *used for debugging purposes*
+
+//print *used for debugging purposes*
 	for (int i = 0; i < rows; i++)
 	{
 		cout << "\n";
@@ -82,7 +93,7 @@ print *used for debugging purposes*
 			cout << cipherMatrix[i][j] << " ";
 		}
 	}
-*/
+
 
 
 	int currKeyLoc;
@@ -165,12 +176,16 @@ string RowTransposition::decrypt(const string& cipherText)
 		}
 	}
 
-
 	for (int i = 0; i < rows; i++)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			decryptedText = decryptedText + decipheredMatrix[i][j];
+			cipherChar = decipheredMatrix[i][j];
+			if (cipherChar == '#')
+			{
+				cipherChar = '\0';
+			}
+			decryptedText = decryptedText + cipherChar;
 		}
 	}
 
