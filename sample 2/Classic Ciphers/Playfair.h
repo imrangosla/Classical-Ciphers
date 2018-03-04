@@ -1,21 +1,22 @@
-#ifndef CAESAR_H
-#define CAESAR_H
+#ifndef PLAYFAIR_H
+#define PLAYFAIR_H
 
 #include <vector>   /* For vectors */
 #include <string>   /* For C++ strings */
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
+#include <algorithm>
 #include "CipherInterface.h"
 
 using namespace std;
 
 /**
-* This class implements the caesar cipher.
+* This class implements the playfair cipher.
 * The class extends the abstract class
 * CipherInterface.
 */
 
-class Caesar : public CipherInterface
+class Playfair : public CipherInterface
 {
 	/** The public members **/
 public:
@@ -41,11 +42,26 @@ public:
 	*/
 	virtual string decrypt(const string& ciphertext);
 
+	/**
+	* setKey helper function to find repeating characters in a string
+	* @param key - the key to use
+	* @return True if string contains repeating characters and False otherwise
+	*/
+	bool hasRepeatingChars(string key);
+
+	/**
+	* Helper function to do modulus arithmetic for results less than zero
+	* because -1 % 5 in c++ is -1 instead of 4...
+	* @param x , y - integers in operation
+	* @return - result of the operation
+	*/
+	int mod(int x, int y);
+
 	/* The protected members */
 protected:
-	int key;
-
+	char squareKey[5][5];
 
 };
 
 #endif
+#pragma once
