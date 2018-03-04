@@ -32,7 +32,7 @@ int main(int argc, char** argv)
 	string outputFile = argv[5];
 
 	/* Code for reading the file */
-	fstream stream(inputFile.c_str());
+	fstream stream(inputFile);
 	string content((istreambuf_iterator<char>(stream)),(istreambuf_iterator<char>()));
 	stream.close();
 	
@@ -98,7 +98,7 @@ void errorCheck(CipherInterface * cipher)
 void cryptoDriver(CipherInterface * cipher, string key, string encDec, string outputFile, string content)
 {
 	ofstream outFile;
-	outFile.open(outputFile.c_str());
+	outFile.open(outputFile);
 
 	/* Set the encryption key */
 	if (cipher->setKey(key))

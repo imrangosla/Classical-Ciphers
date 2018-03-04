@@ -46,6 +46,7 @@ string Playfair::encrypt(const string& plaintext)
 {
 	string cleartext = plaintext;
 	replace(cleartext.begin(), cleartext.end(), 'j', 'i');
+	cleartext.erase(remove(cleartext.begin(), cleartext.end(), '\n'), cleartext.end());
 
 	if (hasRepeatingChars(cleartext))
 	{
@@ -114,6 +115,7 @@ string Playfair::decrypt(const string& cipherText)
 {
 	string cyphertext = cipherText;
 	replace(cyphertext.begin(), cyphertext.end(), 'j', 'i');
+	cyphertext.erase(remove(cyphertext.begin(), cyphertext.end(), '\n'), cyphertext.end());
 
 	string result;
 	int k = 0;
