@@ -1,7 +1,7 @@
 /*
-	Kevin Pham
-	Feb 25, 2018
-	CPSC 452
+Kevin Pham
+Feb 25, 2018
+CPSC 452
 */
 
 #ifndef VIGENRE_H
@@ -11,9 +11,17 @@
 #include <string>   /* For C++ strings */
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
+#include <iostream>
+#include <fstream>
 #include "CipherInterface.h"
 
 using namespace std;
+
+/**
+* This class implements the vigenre cipher.
+* The class extends the abstract class
+* CipherInterface.
+*/
 
 class Vigenre : public CipherInterface
 {
@@ -60,5 +68,7 @@ protected:
 	vector<int> vectorOutput;
 	int keyLength;
 	int inputLength;
+
 };
+
 #endif

@@ -1,0 +1,31 @@
+Your README file should include:
+
+– Names and email addresses of all partners.
+– The programming language you use (e.g. C++, Java, Python)
+– How to execute your program.
+– Whether you implemented the extra credit.
+– Anything special about your submission that we should take note of.
+
+CPSC 452 - Classical Ciphers - Assignment 1
+
+Diego Franchi - diegofranchi@csu.fullerton.edu
+Imran Gosla - igosla0@csu.fullerton.edu
+Miles McCloskey - m.mccloskey@csu.fullerton.edu
+Jonathan  Moubayed - jonmoubayed@csu.fullerton.edu
+Kevin Pham - kpham163@csu.fullerton.edu
+
+Programming Language: C++
+
+How to execute our program:
+
+	make
+	
+	./cipher <CIPHER NAME> <KEY> <ENC/DEC> <INPUTFILE> <OUTPUT FILE>
+	
+	where:
+		<CIPHER NAME> = {PLF, RTS, RFC, VIG, CES} //name of the cipher
+		<KEY> = encryption key to use
+		<ENC/DEC> = {ENC, DEC} //whether to encrypt or decrypt, respectively
+		<INPUTFILE> = the file from which to read the input
+		<OUTPUT> = the file to which the output shall be written
+		

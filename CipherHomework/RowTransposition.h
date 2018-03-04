@@ -6,6 +6,8 @@
 #include <stdio.h>  /* For standard I/O */
 #include <stdlib.h> /* For miscellenous C functions */
 #include "CipherInterface.h"
+#include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -49,7 +51,8 @@ class RowTransposition: public CipherInterface
 
 		/* The protected members */
 	protected:
-
+		string key;
+		int keylength;
 
 };
 
