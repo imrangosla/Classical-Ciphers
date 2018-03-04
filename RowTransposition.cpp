@@ -55,7 +55,7 @@ string RowTransposition::encrypt(const string& plaintext)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			cipherMatrix[i][j] = '#';
+			cipherMatrix[i][j] = ' ';
 		}
 	}
 
@@ -85,14 +85,14 @@ string RowTransposition::encrypt(const string& plaintext)
 
 
 //print *used for debugging purposes*
-	for (int i = 0; i < rows; i++)
+	/*for (int i = 0; i < rows; i++)
 	{
 		cout << "\n";
 		for (int j = 0; j < cols; j++)
 		{
 			cout << cipherMatrix[i][j] << " ";
 		}
-	}
+	}*/
 
 
 
@@ -132,7 +132,7 @@ string RowTransposition::decrypt(const string& cipherText)
 	vector<int> keyArr(keylength, 0);
 	for (int k = 0; k < keylength; k++)
 	{
-		keyArr[k] = this->key[k];
+		keyArr[k] = this->key[k] - 48;
 	}
 
 
@@ -150,30 +150,32 @@ string RowTransposition::decrypt(const string& cipherText)
 
 
 
-	int keyArrCounter;
-	int keyAtIndex;
+	int decIndex;
+	int tkey;
 
 	vector<vector<char> >decipheredMatrix(rows, vector<char>(cols));
-	for (int i = 0; i < cols; i++)
-	{
-		keyArrCounter = 0;
+	for (int i = 0; i < keylength; i++)
+	{	
+
 		bool found = false;
-		while (!found)
+		int j = 0;
+		while (!found && (j < keylength))
 		{
-			keyAtIndex = keyArr[keyArrCounter] - 48;
-				if ((keyAtIndex) == (i+1))
+			if (keyArr[j] == (i+1))
+			{
+				found = true;
+				tkey = keyArr[j];
+				for (int k = 0; k < rows; k++)
 				{
-					found = true;
-					for (int j = 0; j < rows; j++)
-					{
-						decipheredMatrix[j][i] = cipherMatrix[j][keyArrCounter];
-					}
+					decipheredMatrix[k][tkey - 1] = cipherMatrix[k][j];
 				}
-				else
-				{
-					keyArrCounter++;
-				}
+			}
+			else
+			{
+				j++;
+			}
 		}
+		
 	}
 
 	for (int i = 0; i < rows; i++)
@@ -181,11 +183,11 @@ string RowTransposition::decrypt(const string& cipherText)
 		for (int j = 0; j < cols; j++)
 		{
 			cipherChar = decipheredMatrix[i][j];
-			if (cipherChar == '#')
+			if (cipherChar != '\n')
 			{
-				cipherChar = '\0';
+				decryptedText = decryptedText + cipherChar;
 			}
-			decryptedText = decryptedText + cipherChar;
+			
 		}
 	}
 
