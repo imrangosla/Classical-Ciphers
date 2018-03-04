@@ -4,7 +4,7 @@
 #include "CipherInterface.h"
 #include "Playfair.h"
 #include "RowTransposition.h"
-#include "Railfence.h"
+#include "RailFence.h"
 #include "Vigenre.h"
 #include "Caesar.h"
 

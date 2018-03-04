@@ -1,4 +1,4 @@
-#include "Railfence.h"
+#include "RailFence.h"
 #include <iostream>
 #include <string>
 #include <algorithm>

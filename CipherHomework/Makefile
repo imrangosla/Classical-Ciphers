@@ -1,7 +1,7 @@
 all:	cipher
 
-cipher:	cipher.o Playfair.o RowTransposition.o Railfence.o Vigenre.o Caesar.o
-	g++ -std=c++11 cipher.o Playfair.o RowTransposition.o Railfence.o Vigenre.o Caesar.o -o cipher
+cipher:	cipher.o Playfair.o RowTransposition.o RailFence.o Vigenre.o Caesar.o
+	g++ -std=c++11 cipher.o Playfair.o RowTransposition.o RailFence.o Vigenre.o Caesar.o -o cipher
 
 cipher.o:	cipher.cpp
 	g++ -std=c++11 -g -c cipher.cpp 
@@ -12,8 +12,8 @@ Playfair.o:	Playfair.cpp Playfair.h CipherInterface.h
 RowTransposition.o: RowTransposition.cpp RowTransposition.h CipherInterface.h
 	g++ -std=c++11 -g -c RowTransposition.cpp
 	
-Railfence.o: Railfence.cpp Railfence.h CipherInterface.h
-	g++ -std=c++11 -g -c Railfence.cpp
+RailFence.o: RailFence.cpp RailFence.h CipherInterface.h
+	g++ -std=c++11 -g -c RailFence.cpp
 
 Vigenre.o: Vigenre.cpp Vigenre.h CipherInterface.h
 	g++ -std=c++11 -g -c Vigenre.cpp
