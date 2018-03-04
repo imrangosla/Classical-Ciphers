@@ -31,8 +31,13 @@ string RowTransposition::encrypt(const string& plaintext)
 {
 	int rows;
 	int cols = this->keylength;
-	int pLength = plaintext.length();
-	string text = plaintext;
+
+	string cleartext = plaintext;
+	cleartext.erase(remove(cleartext.begin(), cleartext.end(), '\0'), cleartext.end());
+	cleartext.erase(remove(cleartext.begin(), cleartext.end(), '\n'), cleartext.end());
+
+	int pLength = cleartext.length();
+	
 	string ciphertext = "";
 	
 
@@ -55,7 +60,7 @@ string RowTransposition::encrypt(const string& plaintext)
 	{
 		for (int j = 0; j < cols; j++)
 		{
-			cipherMatrix[i][j] = ' ';
+			cipherMatrix[i][j] = '#';
 		}
 	}
 
@@ -66,7 +71,7 @@ string RowTransposition::encrypt(const string& plaintext)
 		{
 			//textTest = text[counter];			*used for debugging
 			{
-				cipherMatrix[i][j] = text[counter];
+				cipherMatrix[i][j] = cleartext[counter];
 			}
 			counter++;
 		}
@@ -104,6 +109,9 @@ string RowTransposition::encrypt(const string& plaintext)
 		{
 			currKeyLoc = (int)(keyArr[i]) - 49;
 			cipherChar = cipherMatrix[j][currKeyLoc];
+			// ##### NEW STUFF ####
+			if(cipherChar == '\n')
+				cipherChar = '#';
 			ciphertext = ciphertext + cipherChar;
 		}
 	}
@@ -119,11 +127,15 @@ string RowTransposition::encrypt(const string& plaintext)
 string RowTransposition::decrypt(const string& cipherText)
 {
 	int cols = this->keylength;
-	int rows = cipherText.length() / cols;
+	string cleartext = cipherText;
+	cleartext.erase(remove(cleartext.begin(), cleartext.end(), '\0'), cleartext.end());
+	cleartext.erase(remove(cleartext.begin(), cleartext.end(), '\n'), cleartext.end());
+
+	int rows = cleartext.length() / cols;
 	string decryptedText = "";
 	char cipherChar;
 	
-	if ((cipherText.length() % cols) != 0)
+	if ((cleartext.length() % cols) != 0)
 	{
 		rows++;
 	}
@@ -135,17 +147,21 @@ string RowTransposition::decrypt(const string& cipherText)
 		keyArr[k] = this->key[k] - 48;
 	}
 
+	cout << "ROWS: " << rows << "	CIPHERTEXT LEN: " << cleartext.length() << "\n";
 
 	vector<vector<char> >cipherMatrix(rows, vector<char>(cols));
 	int counter = 0;
-	for (int i = 0; (i < cols) && (counter < cipherText.length()); i++)
+	for (int i = 0; (i < cols) && (counter < cleartext.length()); i++)
 	{
+
+	
 		for (int j = 0; j < rows; j++)
 		{
-			
-			cipherMatrix[j][i] = cipherText[counter];
+				
+			cipherMatrix[j][i] = cleartext[counter];
 			counter++;
 		}
+	
 	}
 
 
@@ -183,7 +199,7 @@ string RowTransposition::decrypt(const string& cipherText)
 		for (int j = 0; j < cols; j++)
 		{
 			cipherChar = decipheredMatrix[i][j];
-			if (cipherChar != '\n')
+			if (cipherChar != '\n' && cipherChar != '#')
 			{
 				decryptedText = decryptedText + cipherChar;
 			}
