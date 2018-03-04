@@ -7,6 +7,7 @@
 #include <stdlib.h> /* For miscellenous C functions */
 #include "CipherInterface.h"
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
