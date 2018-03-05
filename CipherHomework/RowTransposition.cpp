@@ -14,8 +14,74 @@ bool RowTransposition::setKey(const string& key)
   }
   else 
   {	
-	this->keylength = key.length();
-	this->key = key;
+	bool allNumbersPresent = true;
+	int numberCounter = 1;
+
+	vector<int> keyArr(key.length(), 0);
+	//create an array with the key
+
+	for (int k = 0; k < key.length; k++)
+	{
+		keyArr[k] = key[k] - 48;
+	}
+
+	while (allNumbersPresent && (numberCounter <= key.length()))		//loops until it find that all numbers in key from 1 to KeyLength are present, or if they are not present, returns false
+	{
+		int indexCounter = 0;
+		bool found = false;
+		while (indexCounter < key.length() && !found)	//search for key
+		{
+			if (numberCounter == keyArr[indexCounter])
+			{
+				found = true;
+			}
+			else
+			{
+				indexCounter++;
+			}
+		}
+
+		bool noDupes = true;
+		if (found) //found number in key array
+		{
+			int j = indexCounter + 1;
+			
+			while (noDupes && (j < key.length()))	//searching for duplicate numbers in key array
+			{
+				if (numberCounter == keyArr[j])			//if a duplicate is found, return error and return false
+				{
+					cout << "ERROR: INVALID KEY -> Duplicate number in key" << "\n";
+					noDupes = false;
+					return false;
+				}
+				else	//if it does not find a duplicate go to next index
+				{
+					j++;
+				}
+			}
+		}
+		else if ((found) && (noDupes) && (key.length() == indexCounter+1))	//if found and the index is at the last number in key and there are no duplicate numbers 
+		{
+			allNumbersPresent = true;
+		}
+		numberCounter++;
+	}
+
+	if (allNumbersPresent)
+	{
+		this->keylength = key.length();
+		this->key = key;
+		return true;
+	}
+	else
+	{
+		if (!allNumbersPresent)
+		{
+			cout << "ERROR: INVALID KEY -> Missing number in key" << "\n";
+		}
+		return false;
+	}
+		
   }
 }
 
@@ -109,7 +175,6 @@ string RowTransposition::encrypt(const string& plaintext)
 		{
 			currKeyLoc = (int)(keyArr[i]) - 49;
 			cipherChar = cipherMatrix[j][currKeyLoc];
-			// ##### NEW STUFF ####
 			if(cipherChar == '\n')
 				cipherChar = '#';
 			ciphertext = ciphertext + cipherChar;
