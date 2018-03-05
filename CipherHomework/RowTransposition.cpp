@@ -40,6 +40,11 @@ bool RowTransposition::setKey(const string& key)
 				indexCounter++;
 			}
 		}
+		if (!found)
+		{
+			cout << "ERROR: INVALID KEY -> Missing number in key" << "\n";
+			return false;
+		}
 
 		bool noDupes = true;
 		if (found) //found number in key array
@@ -73,14 +78,7 @@ bool RowTransposition::setKey(const string& key)
 		this->key = key;
 		return true;
 	}
-	else
-	{
-		if (!allNumbersPresent)
-		{
-			cout << "ERROR: INVALID KEY -> Missing number in key" << "\n";
-		}
-		return false;
-	}
+
 		
   }
 }
