@@ -20,7 +20,7 @@ bool RowTransposition::setKey(const string& key)
 	vector<int> keyArr(key.length(), 0);
 	//create an array with the key
 
-	for (int k = 0; k < key.length; k++)
+	for (int k = 0; k < key.length(); k++)
 	{
 		keyArr[k] = key[k] - 48;
 	}
