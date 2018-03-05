@@ -42,7 +42,7 @@ bool RowTransposition::setKey(const string& key)
 		}
 		if (!found)
 		{
-			cout << "ERROR: INVALID KEY -> Missing number in key" << "\n";
+			//cout << "ERROR: INVALID KEY -> Missing number in key" << "\n";
 			return false;
 		}
 
@@ -55,7 +55,7 @@ bool RowTransposition::setKey(const string& key)
 			{
 				if (numberCounter == keyArr[j])			//if a duplicate is found, return error and return false
 				{
-					cout << "ERROR: INVALID KEY -> Duplicate number in key" << "\n";
+					//cout << "ERROR: INVALID KEY -> Duplicate number in key" << "\n";
 					noDupes = false;
 					return false;
 				}
@@ -210,7 +210,7 @@ string RowTransposition::decrypt(const string& cipherText)
 		keyArr[k] = this->key[k] - 48;
 	}
 
-	cout << "ROWS: " << rows << "	CIPHERTEXT LEN: " << cleartext.length() << "\n";
+	//cout << "ROWS: " << rows << "	CIPHERTEXT LEN: " << cleartext.length() << "\n";
 
 	vector<vector<char> >cipherMatrix(rows, vector<char>(cols));
 	int counter = 0;
