@@ -14,7 +14,7 @@ bool RowTransposition::setKey(const string& key)
   }
   else 
   {	
-	bool allNumbersPresent = true;
+	bool allNumbersPresent = false;
 	int numberCounter = 1;
 
 	vector<int> keyArr(key.length(), 0);
@@ -25,7 +25,7 @@ bool RowTransposition::setKey(const string& key)
 		keyArr[k] = key[k] - 48;
 	}
 
-	while (allNumbersPresent && (numberCounter <= key.length()))		//loops until it find that all numbers in key from 1 to KeyLength are present, or if they are not present, returns false
+	while (!allNumbersPresent && (numberCounter <= key.length()))		//loops until it find that all numbers in key from 1 to KeyLength are present, or if they are not present, returns false
 	{
 		int indexCounter = 0;
 		bool found = false;
@@ -60,7 +60,7 @@ bool RowTransposition::setKey(const string& key)
 				}
 			}
 		}
-		else if ((found) && (noDupes) && (key.length() == indexCounter+1))	//if found and the index is at the last number in key and there are no duplicate numbers 
+		if ((found) && (noDupes) && (key.length() == indexCounter+1))	//if found and the index is at the last number in key and there are no duplicate numbers 
 		{
 			allNumbersPresent = true;
 		}
