@@ -65,7 +65,7 @@ bool RowTransposition::setKey(const string& key)
 				}
 			}
 		}
-		if ((found) && (noDupes) && (key.length() == indexCounter+1))	//if found and the index is at the last number in key and there are no duplicate numbers 
+		if ((found) && (noDupes) && (key.length() == indexCounter+1) && (numberCounter == key.length()))	//if found and the index is at the last number in key and there are no duplicate numbers 
 		{
 			allNumbersPresent = true;
 		}
