@@ -15,10 +15,17 @@ bool Caesar::setKey(const string& key)
 	int intKey = stoi(key);
 
 	if (!isdigit(key[0]))
-		return false;
+    {
+        return false;
+    }
 	else
-		this->key = intKey;
-
+    {
+        this->key = intKey;
+        if(this->key > 26)
+        {
+            this->key = this->key%26;
+        }
+    }
 	return true;
 }
 /**
