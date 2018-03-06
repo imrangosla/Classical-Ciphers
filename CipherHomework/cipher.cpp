@@ -4,7 +4,7 @@
 #include "CipherInterface.h"
 #include "Playfair.h"
 #include "RowTransposition.h"
-#include "Railfence.h"
+#include "RailFence.h"
 #include "Vigenre.h"
 #include "Caesar.h"
 #include "Hill.h"
@@ -88,7 +88,6 @@ int main(int argc, char** argv)
 		return -1;
 	}
 	
-	system("pause");
 	return 0;
 }
 
