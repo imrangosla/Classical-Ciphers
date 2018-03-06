@@ -1,5 +1,9 @@
 #include "Caesar.h"
-
+#include <iostream>
+#include <cstring>
+#include <string>
+#include <algorithm>
+using namespace std;
 
 /**
 * Sets the key to use
@@ -17,10 +21,6 @@ bool Caesar::setKey(const string& key)
 
 	return true;
 }
-
-
-
-
 /**
 * Encrypts a plaintext string
 * @param plaintext - the plaintext string
@@ -28,19 +28,54 @@ bool Caesar::setKey(const string& key)
 */
 string Caesar::encrypt(const string& plaintext)
 {
-	string result = "";
-	for (size_t i = 0; i < plaintext.length()-1; i++) {
-		if (islower(plaintext[i])) {
-			char letterToChange = char(int(plaintext[i] + key - 97) % 26 + 97);
-			result += letterToChange;
+		string cleanText = plaintext;
+		cleanText.erase(remove(cleanText.begin(), cleanText.end(), '\n'),cleanText.end());
+    string str;
+    int asciiOfPlain = 0;
+    int caesar = 0;
+    int size = 0;
+    int newAscii = 0;
+    int remainderKey = 0;
+    int keyMovedSoFar = 0;
+    char caesarChar;
+    char *cstr = new char[str.length()];
+
+    for(int i = 0; i < cleanText.length();i++)
+    {
+        asciiOfPlain = int(cleanText[i]);
+        newAscii = asciiOfPlain + key;
+        //ascii value of z is 122
+        if(newAscii > 122)
+        {
+            keyMovedSoFar = 122 - int(cleanText[i]);
+            remainderKey = key - keyMovedSoFar;
+					  asciiOfPlain = 96 + remainderKey;
+            caesar = asciiOfPlain;
+            caesarChar = char(caesar);
+            strcpy(cstr, str.c_str());
+            cstr[i] = caesarChar;
+						str[i] = cstr[i];
+            size++;
+        }
+				else
+				{
+					caesar = asciiOfPlain;
+					caesar += key;
+					//STORING THE ENCRYPTION
+					cstr[i] = char(caesar);
+					str[i] = cstr[i];
+					size++;
+				}
+    }
+		string result;
+		//We turn our str string AKA actually now a c-string back into a string
+		for (int i = 0; i < size; i++)
+		{
+			char temp = static_cast<char>(cstr[i]);
+			result.push_back(str[i]);
 		}
-		else{
-			char letterToChange = char(int(plaintext[i] + key - 65) % 26 + 65);
-			result += letterToChange;
-		}
-	}
-	return result;
-}
+			return result;
+} // End of Encrypt
 
 /**
 * Decrypts a string of ciphertext
@@ -49,18 +84,52 @@ string Caesar::encrypt(const string& plaintext)
 */
 string Caesar::decrypt(const string& cipherText)
 {
-	int dKey = 26 - key;
-	string result = "";
-	for (size_t i = 0; i < cipherText.length(); i++) {
-		if (islower(cipherText[i])) {
-			char letterToChange = char(int(cipherText[i] + dKey - 97) % 26 + 97);
-			result += letterToChange;
-		}
-		else{
-			char letterToChange = char(int(cipherText[i] + dKey - 65) % 26 + 65);
-			result += letterToChange;
-		}
+	string cleanText = cipherText;
+	cleanText.erase(remove(cleanText.begin(), cleanText.end(), '\n'),cleanText.end());
+	string str;
+	int asciiOfPlain = 0;
+	int caesar = 0;
+	int size = 0;
+	int newAscii = 0;
+	int remainderKey = 0;
+	int keyMovedSoFar = 0;
+	char caesarChar;
+	char *cstr = new char[str.length()];
+
+	for(int i = 0; i < cleanText.length();i++)
+	{
+			 asciiOfPlain = int(cleanText[i]);
+			 newAscii = asciiOfPlain - key;
+			// //ascii value of a is 96
+			 if(newAscii <= 96)
+			 {
+			 		keyMovedSoFar = int(cleanText[i]) - 96;
+			 		remainderKey = key - keyMovedSoFar;
+			 		asciiOfPlain = 122 - remainderKey;
+			 		caesar = asciiOfPlain;
+			 		caesarChar = char(caesar);
+			 		strcpy(cstr, str.c_str());
+			 		cstr[i] = caesarChar;
+			 		str[i] = cstr[i];
+			 		size++;
+			 }
+			else
+			{
+				caesar = asciiOfPlain;
+				caesar -= key;
+				//STORING THE ENCRYPTION
+				cstr[i] = char(caesar);
+				str[i] = cstr[i];
+				size++;
+			}
 	}
-	return result;
+	string result;
+	//We turn our str string AKA actually now a c-string back into a string
+	for (int i = 0; i < size; i++)
+	{
+		char temp = static_cast<char>(cstr[i]);
+		result.push_back(str[i]);
+	}
+		return result;
 
 }
