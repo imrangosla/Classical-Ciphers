@@ -4,9 +4,10 @@
 #include "CipherInterface.h"
 #include "Playfair.h"
 #include "RowTransposition.h"
-#include "RailFence.h"
+#include "Railfence.h"
 #include "Vigenre.h"
 #include "Caesar.h"
+#include "Hill.h"
 
 
 #ifndef __HP_aCC
@@ -32,7 +33,7 @@ int main(int argc, char** argv)
 	string outputFile = argv[5];
 
 	/* Code for reading the file */
-	fstream stream(inputFile);
+	fstream stream(inputFile.c_str());
 	string content((istreambuf_iterator<char>(stream)),(istreambuf_iterator<char>()));
 	stream.close();
 	
@@ -74,12 +75,20 @@ int main(int argc, char** argv)
 		errorCheck(cipher);
 		cryptoDriver(cipher, key, encDec, outputFile, content);
 	}
+	else if (cipherName == "HIL")
+	{
+		/* Create an instance of the Caesar cipher */
+		cipher = new Hill();
+		errorCheck(cipher);
+		cryptoDriver(cipher, key, encDec, outputFile, content);
+	}
 	else 
 	{
 		cout << "Invalid Cipher" << endl;
 		return -1;
 	}
 	
+	system("pause");
 	return 0;
 }
 
@@ -97,7 +106,7 @@ void errorCheck(CipherInterface * cipher)
 void cryptoDriver(CipherInterface * cipher, string key, string encDec, string outputFile, string content)
 {
 	ofstream outFile;
-	outFile.open(outputFile);
+	outFile.open(outputFile.c_str());
 
 	/* Set the encryption key */
 	if (cipher->setKey(key))
